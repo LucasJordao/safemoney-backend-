@@ -18,3 +18,16 @@ Nessa aplicação foi utilizado Spring Boot como stack principal
 ![instancias](https://uploaddeimagens.com.br/images/003/055/193/full/diagrama_uso.png?1611796217)
 
 Depois de ter os diagramas em mãos, comecei a desenvolver a aplicação.
+
+### Iniciando a criação do projeto:
+
+#### Dividi a aplicação em:
+
+* Domains (Entidades)
+* Repositories
+* Resources
+* Services
+
+#### A entidade foi feita assim **(Utilizei o lombok para auxiliar no clean code)**
+
+![entidade](https://uploaddeimagens.com.br/images/003/056/330/full/classe-entidade.png?1611862845)
