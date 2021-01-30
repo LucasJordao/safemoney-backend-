@@ -30,4 +30,4 @@ Depois de ter os diagramas em mãos, comecei a desenvolver a aplicação.
 
 #### A entidade foi feita assim **(Utilizei o lombok para auxiliar no clean code)**
 
-![entidade](https://uploaddeimagens.com.br/images/003/056/330/full/classe-entidade.png?1611862845)
+![entidade](https://uploaddeimagens.com.br/images/003/058/942/full/classe-entidade.png?1611963959)

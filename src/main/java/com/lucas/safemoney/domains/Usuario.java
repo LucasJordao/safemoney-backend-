@@ -8,15 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"serialVersionUID", "nome", "email", "senha", "perfil"})
+@EqualsAndHashCode(exclude = {"nome", "email", "senha", "perfil"})
 @Entity
 @Table(name = "USUARIO")
 public class Usuario implements Serializable{
@@ -25,7 +26,6 @@ public class Usuario implements Serializable{
 	
 	// Atributos
 	@Getter @Setter
-	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
