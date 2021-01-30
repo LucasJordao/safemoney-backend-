@@ -30,4 +30,7 @@ Depois de ter os diagramas em mãos, comecei a desenvolver a aplicação.
 
 #### A entidade foi feita assim **(Utilizei o lombok para auxiliar no clean code)**
 
-![entidade](https://uploaddeimagens.com.br/images/003/058/942/full/classe-entidade.png?1611963959)
+![entidade](https://uploaddeimagens.com.br/images/003/059/058/full/classe-entidade.png?1611970517)
+
+Depois de ter criado o **service**, o **repository** e o **resource** do **Usuario** criei um endpoint GET:
+![endpoint](https://uploaddeimagens.com.br/images/003/059/081/full/endpoint-get.png?1611972742)
