@@ -17,7 +17,6 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repo;
 	
-	
 	/*
 	 * Método responsável por retornar todos os usuários do banco de dados 
 	 * @return esse método retorna uma lista de usuários

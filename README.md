@@ -9,7 +9,7 @@ Nessa aplicação foi utilizado Spring Boot como stack principal
 - [x] Diagrama com exemplos de instâncias 
 
 #### Diagrama UML:
-![diagrama](https://uploaddeimagens.com.br/images/003/055/178/full/diagrama_uml.png?1611795859)
+![diagrama](https://uploaddeimagens.com.br/images/003/059/881/full/diagrma.png?1612061141)
 
 #### Diagrama Enumerações:
 ![enumeracoes](https://uploaddeimagens.com.br/images/003/055/083/original/enumeracao.png?1611791631)

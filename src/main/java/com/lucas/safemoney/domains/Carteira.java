@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -35,9 +37,10 @@ public class Carteira implements Serializable{
 	@Getter @Setter
 	private String descricao;
 	@Getter @Setter
-	private Float valor;
+	private Double valor;
 	
 	// Relacionamentos
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	@Getter @Setter
