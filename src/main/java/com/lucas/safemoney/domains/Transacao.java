@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -41,6 +43,7 @@ public class Transacao implements Serializable{
 	private String descricao;
 	
 	// Relacionamentos
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "carteira_id")
 	@Getter @Setter

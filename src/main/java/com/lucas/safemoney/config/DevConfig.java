@@ -1,5 +1,7 @@
 package com.lucas.safemoney.config;
 
+import java.text.ParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +26,12 @@ public class DevConfig {
 			return false;
 		}
 
-		dev.instantiate();
+		try {
+			dev.instantiate();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 }
