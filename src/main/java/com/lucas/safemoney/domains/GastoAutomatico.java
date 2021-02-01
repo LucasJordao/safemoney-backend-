@@ -1,20 +1,18 @@
 package com.lucas.safemoney.domains;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lucas.safemoney.domains.enums.TipoPeriodo;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,10 +20,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"titulo", "descricao", "valor"})
+@EqualsAndHashCode(exclude = {"titulo", "valor", "dataInicial", "periodo", "descricao"})
 @Entity
-@Table(name = "CARTEIRA")
-public class Carteira implements Serializable{
+@Table(name = "GASTO_AUTOMATICO")
+public class GastoAutomatico implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -37,33 +35,38 @@ public class Carteira implements Serializable{
 	@Getter @Setter
 	private String titulo;
 	@Getter @Setter
-	private String descricao;
-	@Getter @Setter
 	private Double valor;
+	@Getter @Setter
+	private Date dataInicial;
+	private Integer periodo;
+	@Getter @Setter
+	private String descricao;
 	
 	// Relacionamentos
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "usuario_id")
+	@JoinColumn(name = "carteira_id")
 	@Getter @Setter
-	private Usuario usuario;
+	private Carteira carteira;
 	
-	@OneToMany(mappedBy = "carteira", cascade = CascadeType.ALL)
-	@Getter @Setter
-	private List<Transacao> transacoes = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "carteira", cascade = CascadeType.ALL)
-	@Getter @Setter
-	private List<GastoAutomatico> gastosAutomaticos = new ArrayList<>();
-
 	// Construtores
-	public Carteira(Integer id, String titulo, String descricao, Double valor, Usuario usuario) {
+	public GastoAutomatico(Integer id, String titulo, Double valor, Date dataInicial, TipoPeriodo periodo,
+			String descricao, Carteira carteira) {
 		this.id = id;
 		this.titulo = titulo;
-		this.descricao = descricao;
 		this.valor = valor;
-		this.usuario = usuario;
+		this.dataInicial = dataInicial;
+		this.periodo = periodo.getCode();
+		this.descricao = descricao;
+		this.carteira = carteira;
 	}
 	
+	// Getters and Setters
+	public TipoPeriodo getPeriodo() {
+		return TipoPeriodo.toEnum(periodo);
+	}
 	
+	public void setPeriodo(TipoPeriodo periodo) {
+		this.periodo = periodo.getCode();
+	}
 }

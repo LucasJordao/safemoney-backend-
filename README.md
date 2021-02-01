@@ -12,7 +12,7 @@ Nessa aplicação foi utilizado Spring Boot como stack principal
 ![diagrama](https://uploaddeimagens.com.br/images/003/060/359/full/diagrama.png?1612135123)
 
 #### Diagrama Enumerações:
-![enumeracoes](https://uploaddeimagens.com.br/images/003/055/083/original/enumeracao.png?1611791631)
+![enumeracoes](https://uploaddeimagens.com.br/images/003/060/421/original/enum.png?1612140557)
 
 #### Diagrama de Instâncias:
 ![instancias](https://uploaddeimagens.com.br/images/003/055/193/full/diagrama_uso.png?1611796217)
