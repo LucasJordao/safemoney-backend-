@@ -17,7 +17,7 @@ public class TransacaoService {
 	@Autowired
 	private TransacaoRepository repo;
 
-	/*
+	/**
 	 * Método responsável por retornar todas as Transacoes do banco de dados
 	 * 
 	 * @return esse método retorna uma lista de transacoes
@@ -26,7 +26,7 @@ public class TransacaoService {
 		return repo.findAll();
 	}
 
-	/*
+	/**
 	 * Método responsável por retornar uma Transacao pelo id
 	 * 
 	 * @param id

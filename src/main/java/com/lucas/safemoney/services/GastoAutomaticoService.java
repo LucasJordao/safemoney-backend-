@@ -17,7 +17,7 @@ public class GastoAutomaticoService {
 	@Autowired
 	private GastoAutomaticoRepository repo;
 
-	/*
+	/**
 	 * Método responsável por retornar todos os Gastos automaticos do banco de dados
 	 * 
 	 * @return esse método retorna uma lista de gastos automaticos
@@ -26,7 +26,7 @@ public class GastoAutomaticoService {
 		return repo.findAll();
 	}
 
-	/*
+	/**
 	 * Método responsável por retornar um GastoAutomatico pelo id
 	 * 
 	 * @param id

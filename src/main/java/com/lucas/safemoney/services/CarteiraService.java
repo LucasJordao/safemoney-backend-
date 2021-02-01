@@ -17,7 +17,7 @@ public class CarteiraService {
 	@Autowired
 	private CarteiraRepository repo;
 
-	/*
+	/**
 	 * Método responsável por retornar todas as Carteiras do banco de dados
 	 * 
 	 * @return esse método retorna uma lista de carteiras
@@ -26,7 +26,7 @@ public class CarteiraService {
 		return repo.findAll();
 	}
 
-	/*
+	/**
 	 * Método responsável por retornar uma Carteira pelo id
 	 * 
 	 * @param id
