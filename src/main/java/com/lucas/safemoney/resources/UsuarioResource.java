@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucas.safemoney.domains.Usuario;
+import com.lucas.safemoney.domains.dto.UsuarioUpdateDTO;
 import com.lucas.safemoney.services.UsuarioService;
 
 @RestController
@@ -52,9 +53,10 @@ public class UsuarioResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Usuario> atualizar(@RequestBody Usuario obj, @PathVariable Integer id){
-		obj.setId(id);
-		obj = service.update(obj);
+	public ResponseEntity<Usuario> atualizar(@Valid @RequestBody UsuarioUpdateDTO obj, @PathVariable Integer id){
+		Usuario user = service.fromDto(obj);
+		user.setId(id);
+		user = service.update(user);
 		
 		return ResponseEntity.noContent().build();
 	}
