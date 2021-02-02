@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucas.safemoney.domains.Usuario;
+import com.lucas.safemoney.domains.dto.UsuarioInsertDTO;
 import com.lucas.safemoney.domains.dto.UsuarioUpdateDTO;
 import com.lucas.safemoney.services.UsuarioService;
 
@@ -45,7 +46,8 @@ public class UsuarioResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> inserir(@Valid @RequestBody Usuario obj){
+	public ResponseEntity<Void> inserir(@Valid @RequestBody UsuarioInsertDTO objDTO){
+		Usuario obj = this.service.fromInsertDto(objDTO);
 		obj = service.insert(obj);	
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(obj.getId()).toUri();
 		
