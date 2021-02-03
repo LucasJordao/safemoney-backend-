@@ -76,6 +76,11 @@ public class UsuarioService {
 
 	// Métodos Auxiliares
 
+	/**
+	 * Método responsável por atualizar os dados do usuario passado em usuário já existente no banco
+	 * @param newObj do tipo Usuario
+	 * @param obj do tipo Usuario 
+	 */
 	private void updateData(Usuario newObj, Usuario obj) {
 		if (obj.getNome() != null) {
 			newObj.setNome(obj.getNome());
@@ -91,6 +96,11 @@ public class UsuarioService {
 		}
 	}
 
+	/**
+	 * Método responsável por converter um UsuarioUpdateDTO em Usuario
+	 * @param obj do tipo UsuarioUpdateDTO
+	 * @return user do tipo Usuario 
+	 */
 	public Usuario fromDto(UsuarioUpdateDTO obj) {
 		Usuario user = new Usuario();
 
@@ -102,6 +112,11 @@ public class UsuarioService {
 		return user;
 	}
 
+	/**
+	 * Método responsável por converter um UsuarioInsertDTO em Usuario
+	 * @param obj do tipo UsuarioInsertDTO
+	 * @return user do tipo Usuario 
+	 */
 	public Usuario fromInsertDto(UsuarioInsertDTO obj) {
 		Usuario user = new Usuario();
 
