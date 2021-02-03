@@ -10,7 +10,10 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.lucas.safemoney.domains.Carteira;
+import com.lucas.safemoney.domains.Usuario;
+import com.lucas.safemoney.domains.dto.CarteiraInsertDTO;
 import com.lucas.safemoney.repositories.CarteiraRepository;
+import com.lucas.safemoney.repositories.UsuarioRepository;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -19,6 +22,13 @@ public class CarteiraService {
 	// Repositories
 	@Autowired
 	private CarteiraRepository repo;
+	
+	@Autowired
+	private UsuarioRepository userRepo;
+	
+	// Services auxiliares
+	@Autowired
+	private UsuarioService userService;
 
 	/**
 	 * Método responsável por retornar todas as Carteiras do banco de dados
@@ -56,5 +66,44 @@ public class CarteiraService {
 		PageRequest obj = PageRequest.of(page, linePerPage, Direction.valueOf(direction), orderBy);
 		
 		return repo.findAll(obj);
+	}
+	
+	
+	/**
+	 * Método responsável por criar uma nova Carteira para o Usuário
+	 * @param objDTO do tipo CarteiraInsertDTO
+	 * @return Carteira
+	 */
+	public Carteira insert(CarteiraInsertDTO objDTO) {
+		Carteira newObj = new Carteira();
+		
+		this.saveData(newObj, objDTO);
+		
+		Usuario user = this.userService.findById(objDTO.getUsuario().getId());
+		newObj.setUsuario(user);
+		user.getCarteiras().add(newObj);
+		
+		Carteira cart = this.repo.save(newObj);
+		this.userRepo.save(user);
+		
+		return cart;
+	}
+	
+	/**
+	 * Método responsável por deletar uma carteira do banco de dados
+	 * @param id do tipo Integer
+	 */
+	public void delete(Integer id) {
+		Carteira cart = this.findById(id);
+		this.repo.delete(cart);
+	}
+	
+	
+	// Métodos auxiliares
+	private void saveData(Carteira newObj, CarteiraInsertDTO objDTO) {
+		newObj.setId(null);
+		newObj.setTitulo(objDTO.getTitulo());
+		newObj.setDescricao(objDTO.getDescricao());
+		newObj.setValor(objDTO.getValor());
 	}
 }

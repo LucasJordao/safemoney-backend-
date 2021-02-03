@@ -49,7 +49,7 @@ public class UsuarioResource {
 	public ResponseEntity<Void> inserir(@Valid @RequestBody UsuarioInsertDTO objDTO){
 		Usuario obj = this.service.fromInsertDto(objDTO);
 		obj = service.insert(obj);	
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(obj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
 	}
