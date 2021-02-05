@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.lucas.safemoney.domains.Carteira;
 import com.lucas.safemoney.domains.Usuario;
 import com.lucas.safemoney.domains.dto.CarteiraInsertDTO;
+import com.lucas.safemoney.domains.dto.CarteiraUpdateDto;
 import com.lucas.safemoney.repositories.CarteiraRepository;
 import com.lucas.safemoney.repositories.UsuarioRepository;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
@@ -77,10 +78,9 @@ public class CarteiraService {
 	public Carteira insert(CarteiraInsertDTO objDTO) {
 		Carteira newObj = new Carteira();
 		
-		this.saveData(newObj, objDTO);
+		this.fromDto(newObj, objDTO);
 		
-		Usuario user = this.userService.findById(objDTO.getUsuario().getId());
-		newObj.setUsuario(user);
+		Usuario user = newObj.getUsuario();
 		user.getCarteiras().add(newObj);
 		
 		Carteira cart = this.repo.save(newObj);
@@ -98,12 +98,44 @@ public class CarteiraService {
 		this.repo.delete(cart);
 	}
 	
+	/**
+	 * Método responsável por atualizar uma Carteira do banco de dados
+	 * @param obj do tipo CarteiraUpdateDto
+	 * @param id do tipo Integer
+	 * @return newObj do tipo Carteira
+	 */
+	public Carteira update(CarteiraUpdateDto obj, Integer id) {
+		Carteira newObj = this.findById(id);
+		this.saveData(newObj, obj);
+		
+		return this.repo.save(newObj);
+	}
 	
 	// Métodos auxiliares
-	private void saveData(Carteira newObj, CarteiraInsertDTO objDTO) {
+	private void fromDto(Carteira newObj, CarteiraInsertDTO objDTO) {
+		Usuario user = this.userService.findById(objDTO.getUsuario().getId());
 		newObj.setId(null);
 		newObj.setTitulo(objDTO.getTitulo());
 		newObj.setDescricao(objDTO.getDescricao());
 		newObj.setValor(objDTO.getValor());
+		newObj.setUsuario(user);
+	}
+	
+	
+	/**
+	 * Método responsável por atualizar dados de uma CarteiraUpdateDto para uma Carteira genérica
+	 * @param newObj do tipo Carteira
+	 * @param obj do tipo CarteiraUpdateDto
+	 */
+	private void saveData(Carteira newObj, CarteiraUpdateDto obj) {
+		if(obj.getTitulo() != null) {
+			newObj.setTitulo(obj.getTitulo());
+		}
+		if(obj.getDescricao() != null) {
+			newObj.setDescricao(obj.getDescricao());
+		}
+		if(obj.getValor() != null) {
+			newObj.setValor(obj.getValor());
+		}
 	}
 }

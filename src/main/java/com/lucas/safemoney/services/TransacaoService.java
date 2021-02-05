@@ -57,4 +57,15 @@ public class TransacaoService {
 		
 		return repo.findAll(obj);
 	}
+	
+	
+	/**
+	 * Método responsável por deletar uma Transacao no banco de dados
+	 * @param id do tipo Integer
+	 */
+	public void delete(Integer id) {
+		Transacao trans = this.findById(id);
+		this.repo.delete(trans);
+	}
+	
 }
