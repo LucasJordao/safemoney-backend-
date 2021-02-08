@@ -1,5 +1,6 @@
 package com.lucas.safemoney.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.lucas.safemoney.domains.Carteira;
 import com.lucas.safemoney.domains.Transacao;
+import com.lucas.safemoney.domains.dto.TransacaoInsertDTO;
+import com.lucas.safemoney.repositories.CarteiraRepository;
 import com.lucas.safemoney.repositories.TransacaoRepository;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
 
@@ -19,6 +23,12 @@ public class TransacaoService {
 	// Repositories
 	@Autowired
 	private TransacaoRepository repo;
+	@Autowired
+	private CarteiraRepository cartRepo;
+	
+	// Services
+	@Autowired
+	private CarteiraService cartService;
 
 	/**
 	 * Método responsável por retornar todas as Transacoes do banco de dados
@@ -68,4 +78,22 @@ public class TransacaoService {
 		this.repo.delete(trans);
 	}
 	
+	
+	public Transacao insert(Transacao obj) {
+		Carteira cart = obj.getCarteira();
+		Transacao objSave = repo.save(obj);
+		cartRepo.save(cart);
+		
+		return objSave;
+	}
+	
+	// Métodos auxiliares
+	public Transacao fromInsertDTO(TransacaoInsertDTO objDTO) {
+		Date data = new Date();
+		Transacao obj = new Transacao(null, objDTO.getTitulo(), objDTO.getValor(), data, objDTO.getDescricao(), null);
+		Carteira carteira = cartService.findById(objDTO.getCarteira().getId());
+		obj.setCarteira(carteira);
+		carteira.getTransacoes().add(obj);
+		return obj;
+	}
 }

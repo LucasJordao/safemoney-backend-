@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class CarteiraUpdateDto implements Serializable{
+public class CarteiraUpdateDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucas.safemoney.domains.Carteira;
 import com.lucas.safemoney.domains.dto.CarteiraInsertDTO;
-import com.lucas.safemoney.domains.dto.CarteiraUpdateDto;
+import com.lucas.safemoney.domains.dto.CarteiraUpdateDTO;
 import com.lucas.safemoney.services.CarteiraService;
 
 @RestController
@@ -76,7 +76,7 @@ public class CarteiraResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> atualizar(@Valid @RequestBody CarteiraUpdateDto obj, @PathVariable Integer id){
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody CarteiraUpdateDTO obj, @PathVariable Integer id){
 		this.service.update(obj, id);
 		
 		return ResponseEntity.noContent().build();

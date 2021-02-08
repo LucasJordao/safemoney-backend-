@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.lucas.safemoney.domains.Carteira;
 import com.lucas.safemoney.domains.Usuario;
 import com.lucas.safemoney.domains.dto.CarteiraInsertDTO;
-import com.lucas.safemoney.domains.dto.CarteiraUpdateDto;
+import com.lucas.safemoney.domains.dto.CarteiraUpdateDTO;
 import com.lucas.safemoney.repositories.CarteiraRepository;
 import com.lucas.safemoney.repositories.UsuarioRepository;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
@@ -104,7 +104,7 @@ public class CarteiraService {
 	 * @param id do tipo Integer
 	 * @return newObj do tipo Carteira
 	 */
-	public Carteira update(CarteiraUpdateDto obj, Integer id) {
+	public Carteira update(CarteiraUpdateDTO obj, Integer id) {
 		Carteira newObj = this.findById(id);
 		this.saveData(newObj, obj);
 		
@@ -127,7 +127,7 @@ public class CarteiraService {
 	 * @param newObj do tipo Carteira
 	 * @param obj do tipo CarteiraUpdateDto
 	 */
-	private void saveData(Carteira newObj, CarteiraUpdateDto obj) {
+	private void saveData(Carteira newObj, CarteiraUpdateDTO obj) {
 		if(obj.getTitulo() != null) {
 			newObj.setTitulo(obj.getTitulo());
 		}
