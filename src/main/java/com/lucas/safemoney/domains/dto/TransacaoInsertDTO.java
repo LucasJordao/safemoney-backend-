@@ -2,7 +2,6 @@ package com.lucas.safemoney.domains.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,7 +24,6 @@ public class TransacaoInsertDTO implements Serializable{
 	@Size(max = 150, min = 5, message = "O titulo tem que ter entre 5 e 150 caracteres")
 	private String titulo;
 	@NotNull(message = "O valor não pode ser vazio")
-	@Min(value = 0, message = "O valor tem que ser maior que 0")
 	private Double valor;
 	@Size(max = 500, min = 5, message = "O titulo tem que ter entre 5 e 500 caracteres")
 	private String descricao;
