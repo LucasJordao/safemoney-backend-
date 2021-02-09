@@ -57,4 +57,15 @@ public class GastoAutomaticoService {
 		
 		return repo.findAll(obj);
 	}
+	
+	
+	/**
+	 * Método responsável por deletar um Gasto Automatico do banco de dados
+	 * @param id do tipo GastoAutomatico
+	 */
+	public void delete(Integer id) {
+		GastoAutomatico gasto = this.findById(id);
+		
+		this.repo.delete(gasto);
+	}
 }
