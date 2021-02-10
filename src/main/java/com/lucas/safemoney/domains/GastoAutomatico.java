@@ -41,6 +41,8 @@ public class GastoAutomatico implements Serializable{
 	private Integer periodo;
 	@Getter @Setter
 	private String descricao;
+	@Getter @Setter
+	private Date dataGasto;
 	
 	// Relacionamentos
 	@JsonIgnore
@@ -51,7 +53,7 @@ public class GastoAutomatico implements Serializable{
 	
 	// Construtores
 	public GastoAutomatico(Integer id, String titulo, Double valor, Date dataInicial, TipoPeriodo periodo,
-			String descricao, Carteira carteira) {
+			String descricao, Carteira carteira, Date dataGasto) {
 		this.id = id;
 		this.titulo = titulo;
 		this.valor = valor;
@@ -59,6 +61,7 @@ public class GastoAutomatico implements Serializable{
 		this.periodo = periodo.getCode();
 		this.descricao = descricao;
 		this.carteira = carteira;
+		this.dataGasto = dataGasto;
 	}
 	
 	// Getters and Setters

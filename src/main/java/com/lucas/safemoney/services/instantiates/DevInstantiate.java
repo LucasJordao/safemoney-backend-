@@ -49,7 +49,7 @@ public class DevInstantiate {
 		Transacao tran4 = new Transacao(null, "Adicionando 250 reais", 250.00, sdf.parse("12/11/2020 15:20"), "Adicionando 250 reais", cart2);
 		
 		// Gastos Automaticos
-		GastoAutomatico gast1 = new GastoAutomatico(null, "Gasto referente ao seguro", 10.00, new Date(), TipoPeriodo.MENSAL, "Gasto referente ao seguro futuro do carro", cart2);
+		GastoAutomatico gast1 = new GastoAutomatico(null, "Gasto referente ao seguro", 10.00, new Date(), TipoPeriodo.MENSAL, "Gasto referente ao seguro futuro do carro", cart2, sdf.parse("12/11/2001 12:30"));
 		
 		// Fazendo relacionamento
 		user1.getCarteiras().addAll(Arrays.asList(cart1, cart2));
