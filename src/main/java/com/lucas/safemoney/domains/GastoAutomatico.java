@@ -58,7 +58,7 @@ public class GastoAutomatico implements Serializable{
 		this.titulo = titulo;
 		this.valor = valor;
 		this.dataInicial = dataInicial;
-		this.periodo = periodo.getCode();
+		this.periodo = periodo == null ? null : periodo.getCode();
 		this.descricao = descricao;
 		this.carteira = carteira;
 		this.dataGasto = dataGasto;

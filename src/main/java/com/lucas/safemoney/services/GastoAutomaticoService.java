@@ -16,6 +16,7 @@ import com.lucas.safemoney.domains.Carteira;
 import com.lucas.safemoney.domains.GastoAutomatico;
 import com.lucas.safemoney.domains.Transacao;
 import com.lucas.safemoney.domains.dto.GastoAutomaticoInsertDTO;
+import com.lucas.safemoney.domains.dto.GastoAutomaticoUpdateDTO;
 import com.lucas.safemoney.repositories.CarteiraRepository;
 import com.lucas.safemoney.repositories.GastoAutomaticoRepository;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
@@ -85,7 +86,11 @@ public class GastoAutomaticoService {
 		this.repo.delete(gasto);
 	}
 	
-	
+	/**
+	 * Método responsável por criar um gasto automático
+	 * @param obj do tipo GastoAutomatico
+	 * @return gast do tipo GastoAutomatico
+	 */
 	public GastoAutomatico insert(GastoAutomatico obj) {
 		Transacao trans = new Transacao();
 		Carteira cart = this.cartService.findById(obj.getCarteira().getId());
@@ -114,6 +119,19 @@ public class GastoAutomaticoService {
 		return gast;
 	}
 	
+	/**
+	 * Método responsável por atualizar um gasto automático
+	 * @param obj do tipo GastoAutomatico
+	 * @return newObj do tipo GastoAutomatico
+	 */
+	public GastoAutomatico update(GastoAutomatico obj) {
+		GastoAutomatico newObj = this.findById(obj.getId());
+		
+		this.saveData(newObj, obj);
+		
+		return this.repo.save(newObj);
+	}
+	
 	// Métodos auxiliares
 	public GastoAutomatico fromInsertDTO(GastoAutomaticoInsertDTO objDTO) {
 		Date data = new Date();
@@ -126,5 +144,38 @@ public class GastoAutomaticoService {
 		}
 		
 		return gastAutomatico;
+	}
+	
+	
+	public GastoAutomatico fromUpdateDTO(GastoAutomaticoUpdateDTO objDTO, Integer id) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataGasto = null;
+		if(objDTO.getDataGasto() != null) {
+			dataGasto = sdf.parse(objDTO.getDataGasto());
+		}
+		
+		GastoAutomatico gastAutomatico = new GastoAutomatico(id, objDTO.getTitulo(), objDTO.getValor(), 
+						null, objDTO.getPeriodo(), objDTO.getDescricao() , null, dataGasto);
+		
+		return gastAutomatico;
+	}
+	
+	private void saveData(GastoAutomatico newObj, GastoAutomatico obj) {
+
+		if(obj.getTitulo() != null) {
+			newObj.setTitulo(obj.getTitulo());
+		}
+		if(obj.getValor() != null) {
+			newObj.setValor(obj.getValor());
+		}
+		if(obj.getDataGasto() != null) {
+			newObj.setDataGasto(obj.getDataGasto());
+		}
+		if(obj.getPeriodo() != null) {
+			newObj.setPeriodo(obj.getPeriodo());
+		}
+		if(obj.getDescricao() != null) {
+			newObj.setDescricao(obj.getDescricao());
+		}
 	}
 }

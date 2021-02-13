@@ -1,6 +1,7 @@
 package com.lucas.safemoney.resources;
 
 import java.net.URI;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucas.safemoney.domains.GastoAutomatico;
 import com.lucas.safemoney.domains.dto.GastoAutomaticoInsertDTO;
+import com.lucas.safemoney.domains.dto.GastoAutomaticoUpdateDTO;
 import com.lucas.safemoney.services.GastoAutomaticoService;
 
 @RestController
@@ -73,5 +76,18 @@ public class GastoAutomaticoResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody GastoAutomaticoUpdateDTO objDTO, @PathVariable Integer id){
+		
+		try {
+			GastoAutomatico obj = this.service.fromUpdateDTO(objDTO, id);
+			obj = this.service.update(obj);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("Erro ao converter a data");
+		}
+		
+		return ResponseEntity.noContent().build();
 	}
 }
