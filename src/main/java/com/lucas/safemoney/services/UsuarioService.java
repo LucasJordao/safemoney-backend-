@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lucas.safemoney.domains.Usuario;
@@ -18,6 +19,10 @@ public class UsuarioService {
 	// Repositories
 	@Autowired
 	private UsuarioRepository repo;
+	
+	// Objetos Auxiliares
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	/**
 	 * Método responsável por retornar todos os usuários do banco de dados
@@ -89,7 +94,7 @@ public class UsuarioService {
 			newObj.setEmail(obj.getEmail());
 		}
 		if (obj.getSenha() != null) {
-			newObj.setSenha(obj.getSenha());
+			newObj.setSenha(pe.encode(obj.getSenha()));
 		}
 		if (obj.getPerfil() != null) {
 			newObj.setPerfil(obj.getPerfil());
@@ -108,7 +113,8 @@ public class UsuarioService {
 		user.setNome(obj.getNome());
 		user.setEmail(obj.getEmail());
 		user.setPerfil(obj.getPerfil());
-
+		user.setSenha(pe.encode(obj.getSenha()));
+		
 		return user;
 	}
 
@@ -124,6 +130,7 @@ public class UsuarioService {
 		user.setNome(obj.getNome());
 		user.setEmail(obj.getEmail());
 		user.setPerfil(obj.getPerfil());
+		user.setSenha(pe.encode(obj.getSenha()));
 
 		return user;
 	}

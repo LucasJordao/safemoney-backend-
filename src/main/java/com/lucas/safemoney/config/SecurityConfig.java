@@ -7,8 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.firewall.HttpFirewall;
-import org.springframework.security.web.firewall.StrictHttpFirewall;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -36,12 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
 	}
-	
+
 	@Bean
-	public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
-	    StrictHttpFirewall firewall = new StrictHttpFirewall();
-	    firewall.setAllowUrlEncodedSlash(true);    
-	    return firewall;
+	public BCryptPasswordEncoder bCryptPasswordEnconder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 }

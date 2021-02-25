@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +39,7 @@ public class Usuario implements Serializable{
 	@Column(unique = true)
 	private String email;
 	@Getter @Setter
+	@JsonIgnore
 	private String senha;
 	@Getter @Setter
 	private String perfil;

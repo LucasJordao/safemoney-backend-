@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lucas.safemoney.domains.Carteira;
@@ -33,10 +34,12 @@ public class DevInstantiate {
 	
 	// Classes auxiliares
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	public void instantiate() throws ParseException {
 		// Usuarios
-		Usuario user1 = new Usuario(null, "Lucas William Silva Jordão", "lucas@hotmail.com", "Senha12345", "perfil.png");
+		Usuario user1 = new Usuario(null, "Lucas William Silva Jordão", "lucas@hotmail.com", pe.encode("Senha12345"), "perfil.png");
 		
 		// Carteiras
 		Carteira cart1 = new Carteira(null, "Carteira para comprar uma casa", "Dinheiro acumulado para comprar uma casa", 150.00, user1);
