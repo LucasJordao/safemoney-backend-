@@ -4,17 +4,17 @@ Nessa aplicação foi utilizado Spring Boot como stack principal
 
 O projeto tem como foco criar uma aplicação mobile que simula carteiras de dinheiro de maneira virtual, para isso utilizarei **Spring Boot** e **Ionic** como stacks principais.
 
-### Para isso fiz um diagrama UML para servir de auxílio.
+### Logo de início fiz um diagrama UML para servir de auxílio.
 
 - [x] Diagrama UML com os devidos relacionamentos
 - [x] Diagrama com as devidas Enumerações
 - [x] Diagrama com exemplos de instâncias 
 
 #### Diagrama UML:
-![diagrama](https://uploaddeimagens.com.br/images/003/060/359/full/diagrama.png?1612135123)
+![diagrama](https://uploaddeimagens.com.br/images/003/099/459/full/diagrama.png?1614200968)
 
 #### Diagrama Enumerações:
-![enumeracoes](https://uploaddeimagens.com.br/images/003/060/421/original/enum.png?1612140557)
+![enumeracoes](https://uploaddeimagens.com.br/images/003/099/458/full/enums.png?1614200896)
 
 #### Diagrama de Instâncias:
 ![instancias](https://uploaddeimagens.com.br/images/003/055/193/full/diagrama_uso.png?1611796217)

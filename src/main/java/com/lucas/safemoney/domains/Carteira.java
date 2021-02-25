@@ -54,7 +54,7 @@ public class Carteira implements Serializable{
 	
 	@OneToMany(mappedBy = "carteira", cascade = CascadeType.ALL)
 	@Getter @Setter
-	private List<GastoAutomatico> gastosAutomaticos = new ArrayList<>();
+	private List<TransacaoAutomatica> transacoesAutomaticas = new ArrayList<>();
 
 	// Construtores
 	public Carteira(Integer id, String titulo, String descricao, Double valor, Usuario usuario) {

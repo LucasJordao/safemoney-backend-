@@ -9,9 +9,8 @@ public enum TipoPeriodo {
 
 	// atributos
 	MENSAL(1, "mensal"),
-	SEMANAL(2, "semanal"),
-	ANUAL(3, "anual"),
-	DIARIO(4, "diario");
+	ANUAL(2, "anual"),
+	DIARIO(3, "diario");
 
 	@Getter
 	private int code;

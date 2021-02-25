@@ -17,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class GastoAutomaticoInsertDTO implements Serializable{
+public class TransacaoAutomaticaInsertDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,8 @@ public class GastoAutomaticoInsertDTO implements Serializable{
 	private String descricao;
 	@NotNull(message = "A carteira não pode ser vazia")
 	private Carteira carteira;
-	@NotNull(message = "Data do gasto não pode ser vazia")
+	@NotNull(message = "Data da transação não pode ser vazia")
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING, timezone = "GMT")
-	private String dataGasto;
+	private String dataTransacao;
+	private Boolean status;
 }

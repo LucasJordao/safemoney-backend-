@@ -15,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class GastoAutomaticoUpdateDTO implements Serializable {
+public class TransacaoAutomaticaUpdateDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -27,5 +27,6 @@ public class GastoAutomaticoUpdateDTO implements Serializable {
 	@Size(min = 5, max = 500, message = "A descrição tem que ter entre 5 e 500 caracteres")
 	private String descricao;
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING, timezone = "GMT")
-	private String dataGasto;
+	private String dataTransacao;
+	private Boolean status;
 }

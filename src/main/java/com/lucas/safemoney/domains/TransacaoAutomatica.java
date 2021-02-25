@@ -20,10 +20,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"titulo", "valor", "dataInicial", "periodo", "descricao"})
+@EqualsAndHashCode(exclude = {"titulo", "valor", "dataInicial", "periodo", "descricao", "dataTransacao"})
 @Entity
-@Table(name = "GASTO_AUTOMATICO")
-public class GastoAutomatico implements Serializable{
+@Table(name = "TRANSACAO_AUTOMATICA")
+public class TransacaoAutomatica implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -42,7 +42,9 @@ public class GastoAutomatico implements Serializable{
 	@Getter @Setter
 	private String descricao;
 	@Getter @Setter
-	private Date dataGasto;
+	private Date dataTransacao;
+	@Getter @Setter
+	private Boolean status;
 	
 	// Relacionamentos
 	@JsonIgnore
@@ -52,8 +54,8 @@ public class GastoAutomatico implements Serializable{
 	private Carteira carteira;
 	
 	// Construtores
-	public GastoAutomatico(Integer id, String titulo, Double valor, Date dataInicial, TipoPeriodo periodo,
-			String descricao, Carteira carteira, Date dataGasto) {
+	public TransacaoAutomatica(Integer id, String titulo, Double valor, Date dataInicial, TipoPeriodo periodo,
+			String descricao, Carteira carteira, Date dataTransacao, Boolean status) {
 		this.id = id;
 		this.titulo = titulo;
 		this.valor = valor;
@@ -61,7 +63,8 @@ public class GastoAutomatico implements Serializable{
 		this.periodo = periodo == null ? null : periodo.getCode();
 		this.descricao = descricao;
 		this.carteira = carteira;
-		this.dataGasto = dataGasto;
+		this.dataTransacao = dataTransacao;
+		this.status = status;
 	}
 	
 	// Getters and Setters

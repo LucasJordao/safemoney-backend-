@@ -20,41 +20,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.lucas.safemoney.domains.GastoAutomatico;
-import com.lucas.safemoney.domains.dto.GastoAutomaticoInsertDTO;
-import com.lucas.safemoney.domains.dto.GastoAutomaticoUpdateDTO;
-import com.lucas.safemoney.services.GastoAutomaticoService;
+import com.lucas.safemoney.domains.TransacaoAutomatica;
+import com.lucas.safemoney.domains.dto.TransacaoAutomaticaInsertDTO;
+import com.lucas.safemoney.domains.dto.TransacaoAutomaticaUpdateDTO;
+import com.lucas.safemoney.services.TransacaoAutomaticaService;
 
 @RestController
-@RequestMapping(value = "/gastos-automaticos")
-public class GastoAutomaticoResource {
+@RequestMapping(value = "/transacoes-automaticas")
+public class TransacaoAutomaticaResource {
 	
 	// Services
 	@Autowired
-	private GastoAutomaticoService service;
+	private TransacaoAutomaticaService service;
 	
 	// EndPoints
 	@GetMapping
-	public ResponseEntity<List<GastoAutomatico>> listar(){
-		List<GastoAutomatico> gasto = service.list();
+	public ResponseEntity<List<TransacaoAutomatica>> listar(){
+		List<TransacaoAutomatica> transacao = service.list();
 		
-		return ResponseEntity.ok().body(gasto);
+		return ResponseEntity.ok().body(transacao);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> listarPorId(@PathVariable Integer id){
-		GastoAutomatico obj = service.findById(id);
+		TransacaoAutomatica obj = service.findById(id);
 		
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping(value = "/page")
-	public ResponseEntity<Page<GastoAutomatico>> findPage(
+	public ResponseEntity<Page<TransacaoAutomatica>> findPage(
 				@RequestParam(value="page", defaultValue="0") Integer page, 
 				@RequestParam(value="linesPerPage", defaultValue="24") Integer linePerPage, 
 				@RequestParam(value="direction", defaultValue="DESC") String direction,
 				@RequestParam(value="orderBy", defaultValue="titulo") String orderBy){
-		Page<GastoAutomatico> list = service.findPage(page, linePerPage, direction, orderBy);
+		Page<TransacaoAutomatica> list = service.findPage(page, linePerPage, direction, orderBy);
 		
 		return ResponseEntity.ok().body(list);
 	}
@@ -68,8 +68,8 @@ public class GastoAutomaticoResource {
 	
 	
 	@PostMapping
-	public ResponseEntity<Void> inserir(@Valid @RequestBody GastoAutomaticoInsertDTO objDTO){
-		GastoAutomatico obj = this.service.fromInsertDTO(objDTO);
+	public ResponseEntity<Void> inserir(@Valid @RequestBody TransacaoAutomaticaInsertDTO objDTO){
+		TransacaoAutomatica obj = this.service.fromInsertDTO(objDTO);
 		
 		obj = this.service.insert(obj);
 		
@@ -79,10 +79,10 @@ public class GastoAutomaticoResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> atualizar(@Valid @RequestBody GastoAutomaticoUpdateDTO objDTO, @PathVariable Integer id){
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody TransacaoAutomaticaUpdateDTO objDTO, @PathVariable Integer id){
 		
 		try {
-			GastoAutomatico obj = this.service.fromUpdateDTO(objDTO, id);
+			TransacaoAutomatica obj = this.service.fromUpdateDTO(objDTO, id);
 			obj = this.service.update(obj);
 		} catch (ParseException e) {
 			throw new IllegalArgumentException("Erro ao converter a data");
