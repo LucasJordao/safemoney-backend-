@@ -11,5 +11,5 @@ public interface TransacaoAutomaticaRepository extends JpaRepository<TransacaoAu
 	
 	@Transactional(readOnly = true)
 	List<TransacaoAutomatica> findByPeriodoAndStatus(Integer value, Boolean status);
-	
+
 }

@@ -36,7 +36,7 @@ public class DevInstantiate {
 	
 	public void instantiate() throws ParseException {
 		// Usuarios
-		Usuario user1 = new Usuario(null, "Lucas William Silva Jordão", "lucas@hotmail.com", "Senha12345", "https://imagem-perfil.com");
+		Usuario user1 = new Usuario(null, "Lucas William Silva Jordão", "lucas@hotmail.com", "Senha12345", "perfil.png");
 		
 		// Carteiras
 		Carteira cart1 = new Carteira(null, "Carteira para comprar uma casa", "Dinheiro acumulado para comprar uma casa", 150.00, user1);

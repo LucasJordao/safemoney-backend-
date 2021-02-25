@@ -40,7 +40,7 @@ public class CriarTransacoesAutomaticas {
 	private static final String TIME_ZONE = "America/Sao_Paulo";
 	
 	@Async
-	@Scheduled(cron = "0 0 0", zone = TIME_ZONE)
+	@Scheduled(cron = "0 0 1 * * *", zone = TIME_ZONE)
 	public void criarTransacao() {
 		try {
 			
