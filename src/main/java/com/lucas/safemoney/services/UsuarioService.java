@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.lucas.safemoney.domains.Usuario;
 import com.lucas.safemoney.domains.dto.UsuarioInsertDTO;
 import com.lucas.safemoney.domains.dto.UsuarioUpdateDTO;
+import com.lucas.safemoney.domains.enums.Perfil;
 import com.lucas.safemoney.repositories.UsuarioRepository;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
 
@@ -131,7 +132,8 @@ public class UsuarioService {
 		user.setEmail(obj.getEmail());
 		user.setPerfil(obj.getPerfil());
 		user.setSenha(pe.encode(obj.getSenha()));
-
+		user.addPerfil(Perfil.USER);
+		
 		return user;
 	}
 }

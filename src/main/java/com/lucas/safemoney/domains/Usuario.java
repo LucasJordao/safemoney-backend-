@@ -2,11 +2,16 @@ package com.lucas.safemoney.domains;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lucas.safemoney.domains.enums.Perfil;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -49,6 +55,9 @@ public class Usuario implements Serializable{
 	@Getter @Setter
 	private List<Carteira> carteiras = new ArrayList<>();
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<Integer> perfis = new HashSet<>();
+	
 	// Construtores
 	public Usuario(Integer id, String nome, String email, String senha, String perfil) {
 		this.id = id;
@@ -56,5 +65,14 @@ public class Usuario implements Serializable{
 		this.email = email;
 		this.senha = senha;
 		this.perfil = perfil;
+	}
+	
+	// Getters e Setters personalizados
+	public Set<Perfil> getPerfis(){
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCode());
 	}
 }

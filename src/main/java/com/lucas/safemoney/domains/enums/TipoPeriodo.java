@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum TipoPeriodo {
 
 	// atributos
@@ -12,9 +13,7 @@ public enum TipoPeriodo {
 	ANUAL(2, "anual"),
 	DIARIO(3, "diario");
 
-	@Getter
 	private int code;
-	@Getter
 	private String descricao;
 	
 	// Méotodos

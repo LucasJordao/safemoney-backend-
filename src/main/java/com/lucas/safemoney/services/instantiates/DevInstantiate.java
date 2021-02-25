@@ -13,6 +13,7 @@ import com.lucas.safemoney.domains.Carteira;
 import com.lucas.safemoney.domains.TransacaoAutomatica;
 import com.lucas.safemoney.domains.Transacao;
 import com.lucas.safemoney.domains.Usuario;
+import com.lucas.safemoney.domains.enums.Perfil;
 import com.lucas.safemoney.domains.enums.TipoPeriodo;
 import com.lucas.safemoney.repositories.CarteiraRepository;
 import com.lucas.safemoney.repositories.TransacaoAutomaticaRepository;
@@ -40,6 +41,7 @@ public class DevInstantiate {
 	public void instantiate() throws ParseException {
 		// Usuarios
 		Usuario user1 = new Usuario(null, "Lucas William Silva Jordão", "lucas@hotmail.com", pe.encode("Senha12345"), "perfil.png");
+		user1.addPerfil(Perfil.ADMIN);
 		
 		// Carteiras
 		Carteira cart1 = new Carteira(null, "Carteira para comprar uma casa", "Dinheiro acumulado para comprar uma casa", 150.00, user1);
