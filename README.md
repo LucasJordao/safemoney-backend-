@@ -14,7 +14,7 @@ O projeto tem como foco criar uma aplicação mobile que simula carteiras de din
   <a href="#imagens">Imagens</a>
 </p>
 
-# Criando
+# :hammer: Criando
 ### Logo de início fiz um diagrama UML para servir de auxílio.
 
 - [x] Diagrama UML com os devidos relacionamentos
