@@ -1,11 +1,20 @@
-# :star2: Safe Money - Aplicação Backend Monolítica
+# :star2: Safe Money - Aplicação Backend Monolítica 
 
 Nessa aplicação foi utilizado Spring Boot como stack principal
 
 O projeto tem como foco criar uma aplicação mobile que simula carteiras de dinheiro de maneira virtual, para isso utilizarei **Spring Boot** e **Ionic** como stacks principais.
 
-[Lista](#lista)
+<p align="center">
+  <img src="https://uploaddeimagens.com.br/images/003/099/764/original/safemoney.png?1614217102" width="200">
+</p>
 
+<p align="center">
+  <a href="#criando">Criando o Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#instalar">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#imagens">Imagens</a>
+</p>
+
+# Criando
 ### Logo de início fiz um diagrama UML para servir de auxílio.
 
 - [x] Diagrama UML com os devidos relacionamentos
@@ -39,5 +48,3 @@ Depois de ter os diagramas em mãos, comecei a desenvolver a aplicação.
 Depois de ter criado o **service**, o **repository** e o **resource** do **Usuario** criei um endpoint GET:
 ![endpoint](https://uploaddeimagens.com.br/images/003/059/081/full/endpoint-get.png?1611972742)
 
-# Lista
-- lista1
