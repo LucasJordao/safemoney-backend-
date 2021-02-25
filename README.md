@@ -9,12 +9,12 @@ O projeto tem como foco criar uma aplicação mobile que simula carteiras de din
 </p>
 
 <p align="center">
-  <a href="#criando">Criando o Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#instalar">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#imagens">Imagens</a>
+  <a href="#-criando">Criando o Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-instalar">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-imagens">Imagens</a>
 </p>
 
-## :hammer: Criando
+## 🔨 Criando
 ### Logo de início fiz um diagrama UML para servir de auxílio.
 
 - [x] Diagrama UML com os devidos relacionamentos
