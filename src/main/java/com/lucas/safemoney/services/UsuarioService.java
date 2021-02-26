@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.lucas.safemoney.config.security.UserSS;
 import com.lucas.safemoney.domains.Usuario;
 import com.lucas.safemoney.domains.dto.UsuarioInsertDTO;
 import com.lucas.safemoney.domains.dto.UsuarioUpdateDTO;
 import com.lucas.safemoney.domains.enums.Perfil;
 import com.lucas.safemoney.repositories.UsuarioRepository;
+import com.lucas.safemoney.services.exceptions.AuthorizationException;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -40,7 +43,13 @@ public class UsuarioService {
 	 * @param id
 	 * @return esse método retorna um usuário
 	 */
-	public Usuario findById(int id) {
+	public Usuario findById(Integer id) {
+		UserSS user = authenticated();
+	
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		Optional<Usuario> obj = repo.findById(id);
 
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -78,6 +87,16 @@ public class UsuarioService {
 	public void delete(Integer id) {
 		Usuario user = this.findById(id);
 		repo.delete(user);
+	}
+	
+	public static UserSS authenticated() {
+		
+		try {
+			return (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		}catch(Exception e) {
+			return null;
+		}
+		
 	}
 
 	// Métodos Auxiliares

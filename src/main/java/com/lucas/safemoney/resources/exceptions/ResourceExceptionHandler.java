@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.lucas.safemoney.services.exceptions.AuthorizationException;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -33,6 +34,14 @@ public class ResourceExceptionHandler {
 		}
 		
 		return ResponseEntity.status(code).body(err);
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request){
+		
+		StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), "Acesso Negado", System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+		
 	}
 	
 }
