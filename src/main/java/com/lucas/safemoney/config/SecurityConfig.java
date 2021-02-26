@@ -15,6 +15,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.lucas.safemoney.config.security.JWTAuthenticationFilter;
+import com.lucas.safemoney.config.security.JWTAuthorizationFilter;
 import com.lucas.safemoney.config.security.JWTUtil;
 
 @Configuration
@@ -38,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers( PUBLIC_MATCHERS_POST).permitAll()
 			.anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	

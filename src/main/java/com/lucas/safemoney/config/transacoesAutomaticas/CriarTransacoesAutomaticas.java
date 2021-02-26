@@ -33,7 +33,7 @@ public class CriarTransacoesAutomaticas {
 	// Objetos auxiliares
 	SimpleDateFormat diaMesAno = new SimpleDateFormat("dd/MM/yyyy");
 	SimpleDateFormat dia = new SimpleDateFormat("dd");
-	Date agora = new Date();
+	Date agora = new Date(System.currentTimeMillis());
 	String dataAtual = diaMesAno.format(agora);
 	String diaAtual = dia.format(agora);
 	
