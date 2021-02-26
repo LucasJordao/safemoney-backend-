@@ -42,6 +42,7 @@ public class DevInstantiate {
 		// Usuarios
 		Usuario user1 = new Usuario(null, "Lucas William Silva Jordão", "lucas@hotmail.com", pe.encode("Senha12345"), "perfil.png");
 		user1.addPerfil(Perfil.ADMIN);
+		user1.addPerfil(Perfil.USER);
 		
 		// Carteiras
 		Carteira cart1 = new Carteira(null, "Carteira para comprar uma casa", "Dinheiro acumulado para comprar uma casa", 150.00, user1);
