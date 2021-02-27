@@ -12,12 +12,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.lucas.safemoney.config.security.UserSS;
 import com.lucas.safemoney.domains.Carteira;
 import com.lucas.safemoney.domains.TransacaoAutomatica;
 import com.lucas.safemoney.domains.dto.TransacaoAutomaticaInsertDTO;
 import com.lucas.safemoney.domains.dto.TransacaoAutomaticaUpdateDTO;
+import com.lucas.safemoney.domains.enums.Perfil;
 import com.lucas.safemoney.repositories.CarteiraRepository;
 import com.lucas.safemoney.repositories.TransacaoAutomaticaRepository;
+import com.lucas.safemoney.services.exceptions.AuthorizationException;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -53,8 +56,17 @@ public class TransacaoAutomaticaService {
 	public TransacaoAutomatica findById(int id) {
 		Optional<TransacaoAutomatica> obj = repo.findById(id);
 
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
+		TransacaoAutomatica trans = obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + TransacaoAutomatica.class.getName()));
+		
+		UserSS user = UsuarioService.authenticated();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !trans.getCarteira().getUsuario().getId().equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
+		
+		return trans;
 	}	
 	
 	/**
@@ -78,9 +90,15 @@ public class TransacaoAutomaticaService {
 	 * @param id do tipo TransacaoAutomatica
 	 */
 	public void delete(Integer id) {
-		TransacaoAutomatica gasto = this.findById(id);
+		TransacaoAutomatica trans = this.findById(id);
 		
-		this.repo.delete(gasto);
+		UserSS user = UsuarioService.authenticated();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !trans.getCarteira().getUsuario().getId().equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
+		this.repo.delete(trans);
 	}
 	
 	/**
@@ -90,6 +108,13 @@ public class TransacaoAutomaticaService {
 	 */
 	public TransacaoAutomatica insert(TransacaoAutomatica obj) {
 		Carteira cart = this.cartService.findById(obj.getCarteira().getId());
+		
+		UserSS user = UsuarioService.authenticated();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !cart.getUsuario().getId().equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		obj.setId(null);
 		obj.setCarteira(cart);
 		if(obj.getStatus() == null) {
@@ -110,6 +135,12 @@ public class TransacaoAutomaticaService {
 	public TransacaoAutomatica update(TransacaoAutomatica obj) {
 		TransacaoAutomatica newObj = this.findById(obj.getId());
 		
+		UserSS user = UsuarioService.authenticated();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !newObj.getCarteira().getUsuario().getId().equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+			
 		this.saveData(newObj, obj);
 		
 		return this.repo.save(newObj);

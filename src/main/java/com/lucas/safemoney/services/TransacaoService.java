@@ -10,12 +10,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.lucas.safemoney.config.security.UserSS;
 import com.lucas.safemoney.domains.Carteira;
 import com.lucas.safemoney.domains.Transacao;
 import com.lucas.safemoney.domains.dto.TransacaoInsertDTO;
 import com.lucas.safemoney.domains.dto.TransacaoUpdateDTO;
+import com.lucas.safemoney.domains.enums.Perfil;
 import com.lucas.safemoney.repositories.CarteiraRepository;
 import com.lucas.safemoney.repositories.TransacaoRepository;
+import com.lucas.safemoney.services.exceptions.AuthorizationException;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -48,10 +51,18 @@ public class TransacaoService {
 	 * @return esse método retorna uma Transacao
 	 */
 	public Transacao findById(int id) {
+		UserSS user = UsuarioService.authenticated();
+		
 		Optional<Transacao> obj = repo.findById(id);
-
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
+		
+		Transacao trans =  obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Transacao.class.getName()));
+				
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !trans.getCarteira().getUsuario().getId().equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+
+		return trans;
 	}
 	
 	/**
@@ -75,8 +86,14 @@ public class TransacaoService {
 	 * @param id do tipo Integer
 	 */
 	public void delete(Integer id) {
+		UserSS user = UsuarioService.authenticated();
+		
 		Transacao trans = this.findById(id);
 		Carteira cart = trans.getCarteira();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !cart.getUsuario().getId().equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
 		
 		cart.setValor(cart.getValor() - trans.getValor());
 		
@@ -91,7 +108,14 @@ public class TransacaoService {
 	 * @return objSave do tipo Transacao
 	 */
 	public Transacao insert(Transacao obj) {
+		
+		UserSS user = UsuarioService.authenticated();
+		
 		Carteira cart = obj.getCarteira();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !cart.getUsuario().getId().equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
 		
 		// Atualizando o valor da carteira apartir da transacao
 		if(obj.getValor() != null) {
@@ -111,8 +135,15 @@ public class TransacaoService {
 	 * @return newObj do tipo Transacao
 	 */
 	public Transacao update(Transacao obj) {
+		UserSS user = UsuarioService.authenticated();
+		
 		Transacao newObj = this.findById(obj.getId());
 		Carteira cart = newObj.getCarteira();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !cart.getUsuario().getId().equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		Double valorAtualizado = (cart.getValor() - newObj.getValor()) + obj.getValor();
 		
 		this.saveData(newObj, obj);

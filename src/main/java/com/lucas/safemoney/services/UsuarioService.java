@@ -74,6 +74,12 @@ public class UsuarioService {
 	 * @return esse método retorna um usuario
 	 */
 	public Usuario update(Usuario obj) {
+		UserSS user = authenticated();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !obj.getId().equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		Usuario newObj = this.findById(obj.getId());
 		updateData(newObj, obj);
 		return repo.save(newObj);
@@ -85,8 +91,14 @@ public class UsuarioService {
 	 * @param id do tipo Integer
 	 */
 	public void delete(Integer id) {
-		Usuario user = this.findById(id);
-		repo.delete(user);
+		UserSS user = authenticated();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
+		Usuario usuario = this.findById(id);
+		repo.delete(usuario);
 	}
 	
 	public static UserSS authenticated() {

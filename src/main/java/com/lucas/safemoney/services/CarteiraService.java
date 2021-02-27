@@ -9,12 +9,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.lucas.safemoney.config.security.UserSS;
 import com.lucas.safemoney.domains.Carteira;
 import com.lucas.safemoney.domains.Usuario;
 import com.lucas.safemoney.domains.dto.CarteiraInsertDTO;
 import com.lucas.safemoney.domains.dto.CarteiraUpdateDTO;
+import com.lucas.safemoney.domains.enums.Perfil;
 import com.lucas.safemoney.repositories.CarteiraRepository;
 import com.lucas.safemoney.repositories.UsuarioRepository;
+import com.lucas.safemoney.services.exceptions.AuthorizationException;
 import com.lucas.safemoney.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -64,9 +67,14 @@ public class CarteiraService {
 	 * @return Page<Carteira>
 	 */
 	public Page<Carteira> findPage(Integer page, Integer linePerPage, String direction, String orderBy){
+		UserSS user = UsuarioService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		PageRequest obj = PageRequest.of(page, linePerPage, Direction.valueOf(direction), orderBy);
+		Usuario usuario = userService.findById(user.getId());
 		
-		return repo.findAll(obj);
+		return repo.findByUsuario(usuario, obj);
 	}
 	
 	
@@ -83,6 +91,13 @@ public class CarteiraService {
 		Usuario user = newObj.getUsuario();
 		user.getCarteiras().add(newObj);
 		
+		UserSS usuario = UsuarioService.authenticated();
+		
+		if(usuario == null || !usuario.hasRole(Perfil.ADMIN) && !user.getId().equals(usuario.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+			
+		
 		Carteira cart = this.repo.save(newObj);
 		this.userRepo.save(user);
 		
@@ -95,6 +110,13 @@ public class CarteiraService {
 	 */
 	public void delete(Integer id) {
 		Carteira cart = this.findById(id);
+		
+		UserSS usuario = UsuarioService.authenticated();
+		
+		if(usuario == null || !usuario.hasRole(Perfil.ADMIN) && !cart.getUsuario().getId().equals(usuario.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		this.repo.delete(cart);
 	}
 	
@@ -107,6 +129,12 @@ public class CarteiraService {
 	public Carteira update(CarteiraUpdateDTO obj, Integer id) {
 		Carteira newObj = this.findById(id);
 		this.saveData(newObj, obj);
+		
+		UserSS usuario = UsuarioService.authenticated();
+		
+		if(usuario == null || !usuario.hasRole(Perfil.ADMIN) && !newObj.getUsuario().getId().equals(usuario.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
 		
 		return this.repo.save(newObj);
 	}
